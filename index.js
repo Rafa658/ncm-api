@@ -4,6 +4,8 @@ const bodyParser = require('body-parser')
 const connectToDatabase = require('./database')
 const port = 4000
 
+const ProdutoService = require('./services/ProdutoService')
+
 const app = express()
 app.use(cors({
     origin: '*'
@@ -25,3 +27,10 @@ app.use(function (req, res, next) {
 })
 
 app.get("/", (req, res) => res.send("Running"))
+
+app.get('/get', async (req, res) => {
+    var busca = await ProdutoService.FindAll()
+
+    res.send(busca)
+    res.status(200)
+})
